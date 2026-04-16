@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Logo Bit soft</title>
+  <desc id="logoDesc">Monograma BS com detalhe de bits para representar a marca Bit soft</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f9b82" />
+      <stop offset="100%" stop-color="#064f43" />
+    </linearGradient>
+    <linearGradient id="mono" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e5fff8" />
+      <stop offset="100%" stop-color="#9eead9" />
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="16" width="128" height="128" rx="30" fill="url(#bg)" />
+
+  <rect x="32" y="32" width="10" height="10" rx="2.5" fill="#b7f4e6" opacity="0.95" />
+  <rect x="46" y="32" width="10" height="10" rx="2.5" fill="#b7f4e6" opacity="0.72" />
+  <rect x="60" y="32" width="10" height="10" rx="2.5" fill="#b7f4e6" opacity="0.5" />
+
+  <path
+    d="M52 46V114M52 46H80C91 46 98 52 98 61C98 70 91 76 80 76H52M52 76H83C96 76 104 84 104 95C104 106 96 114 83 114H52"
+    fill="none"
+    stroke="url(#mono)"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M111 54C104 48 93 47 84 52C76 56 76 66 84 70C89 73 95 73 100 75C109 79 109 92 100 97C92 102 81 101 74 95"
+    fill="none"
+    stroke="#8ce7d4"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.95"
+  />
+</svg>
