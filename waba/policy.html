@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Políticas de Uso - Software WhatsApp API Oficial</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #ffffff;
+      --panel-soft: #f7f9fc;
+      --text: #152033;
+      --muted: #5d6b82;
+      --primary: #2563eb;
+      --primary-dark: #1747b7;
+      --border: rgba(21, 32, 51, 0.10);
+      --shadow: 0 24px 70px rgba(2, 12, 27, 0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 28%),
+        linear-gradient(135deg, #07111f 0%, #0c1d33 48%, #132742 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .overlay {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      width: min(980px, 100%);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 28px 32px 22px;
+      background: linear-gradient(180deg, rgba(37,99,235,0.07) 0%, rgba(37,99,235,0.02) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.10);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      max-width: 820px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .modal-body {
+      padding: 32px;
+      display: grid;
+      gap: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+    }
+
+    .policy-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px 22px 20px;
+      box-shadow: 0 10px 30px rgba(18, 35, 63, 0.05);
+    }
+
+    .policy-box h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .policy-box p,
+    .policy-box li {
+      color: #324158;
+      font-size: 15px;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .policy-box ul,
+    .policy-box ol {
+      margin: 12px 0 0 20px;
+      padding: 0;
+    }
+
+    .policy-box li + li {
+      margin-top: 8px;
+    }
+
+    .highlight {
+      background: var(--panel-soft);
+      border-left: 4px solid var(--primary);
+      padding: 16px 18px;
+      border-radius: 14px;
+      margin-top: 14px;
+    }
+
+    .footer-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 32px 30px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .footer-note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 650px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+    }
+
+    .btn-secondary {
+      background: #eef4ff;
+      color: var(--primary-dark);
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .meta-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .meta-card span {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    @media (max-width: 780px) {
+      body { padding: 18px 10px; }
+      .modal-header,
+      .modal-body,
+      .footer-note { padding-left: 18px; padding-right: 18px; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .policy-box { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-politicas">
+      <header class="modal-header">
+        <div class="badge">WhatsApp API Oficial • Políticas de Uso</div>
+        <h1 id="titulo-politicas">Políticas de Uso do Software de Atendimento e Automação via WhatsApp API Oficial</h1>
+        <p class="subtitle">
+          Este documento estabelece as diretrizes de uso, responsabilidades e limitações aplicáveis ao uso de um software genérico integrado à API Oficial do WhatsApp.
+          O objetivo é garantir conformidade, segurança operacional, boa experiência do usuário final e respeito às regras da plataforma.
+        </p>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <strong>Versão</strong>
+            <span>1.0</span>
+          </div>
+          <div class="meta-card">
+            <strong>Aplicação</strong>
+            <span>Uso corporativo e comercial</span>
+          </div>
+          <div class="meta-card">
+            <strong>Status</strong>
+            <span>Política ativa</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="modal-body">
+        <article class="policy-box">
+          <h2>1. Finalidade do software</h2>
+          <p>
+            O software destina-se ao atendimento, envio de mensagens transacionais, automação de fluxos autorizados, suporte comercial e comunicação com clientes por meio da API Oficial do WhatsApp,
+            sempre em conformidade com os termos da Meta, com a legislação aplicável e com as preferências de comunicação dos destinatários.
+          </p>
+        </article>
+
+        <article class="policy-box">
+          <h2>2. Uso permitido</h2>
+          <ul>
+            <li>Realizar atendimentos receptivos e ativos com base legal adequada e consentimento quando exigido.</li>
+            <li>Enviar notificações, atualizações de pedidos, confirmações, lembretes e mensagens operacionais legítimas.</li>
+            <li>Executar automações de atendimento, triagem e distribuição de conversas entre equipes.</li>
+            <li>Registrar histórico de interações para fins de auditoria, suporte, qualidade e continuidade operacional.</li>
+          </ul>
+        </article>
+
+        <article class="policy-box">
+          <h2>3. Uso proibido</h2>
+          <ul>
+            <li>Envio de spam, mensagens em massa sem autorização ou comunicações não solicitadas.</li>
+            <li>Compra, coleta indevida, raspagem ou importação de listas de contatos sem base legal válida.</li>
+            <li>Uso do sistema para fraude, phishing, engenharia social, desinformação, assédio ou práticas abusivas.</li>
+            <li>Envio de conteúdo ilegal, ofensivo, discriminatório, enganoso ou que viole direitos de terceiros.</li>
+            <li>Tentativas de burlar limites, políticas ou mecanismos de segurança da API Oficial do WhatsApp.</li>
+          </ul>
+
+          <div class="highlight">
+            O descumprimento destas regras poderá resultar em suspensão de acesso ao software, bloqueio de integrações, encerramento contratual e comunicação às autoridades ou parceiros competentes, quando aplicável.
+          </div>
+        </article>
+
+        <article class="policy-box">
+          <h2>4. Responsabilidades do cliente ou usuário administrador</h2>
+          <ol>
+            <li>Manter seus dados cadastrais, templates, fluxos e listas de contatos atualizados e regulares.</li>
+            <li>Garantir que o envio de mensagens esteja respaldado por consentimento, contrato, obrigação legal ou outra base válida.</li>
+            <li>Configurar corretamente perfis de acesso, permissões internas e políticas de autenticação.</li>
+            <li>Treinar operadores e colaboradores para uso adequado da ferramenta e da comunicação com clientes.</li>
+            <li>Responder integralmente pelo conteúdo enviado por seus usuários, operadores, robôs ou integrações conectadas.</li>
+          </ol>
+        </article>
+
+        <article class="policy-box">
+          <h2>5. Segurança e proteção de dados</h2>
+          <p>
+            O usuário compromete-se a utilizar o software de forma segura, preservando credenciais, tokens, dispositivos autorizados, perfis de acesso e demais elementos sensíveis da operação.
+            Sempre que aplicável, deve observar a LGPD e demais normas de privacidade, adotando controles para minimizar acesso indevido, vazamento de dados, retenção excessiva e uso inadequado das informações tratadas.
+          </p>
+          <ul>
+            <li>Não compartilhar logins e senhas entre usuários.</li>
+            <li>Usar autenticação forte e revisão periódica de acessos.</li>
+            <li>Limitar exportações de dados ao estritamente necessário.</li>
+            <li>Comunicar incidentes de segurança assim que identificados.</li>
+          </ul>
+        </article>
+
+        <article class="policy-box">
+          <h2>6. Templates, campanhas e atendimento automatizado</h2>
+          <p>
+            Mensagens template, campanhas e automações devem respeitar a janela de atendimento, as regras da API Oficial, a categoria aprovada de mensagem e a finalidade informada ao destinatário.
+            É vedado usar fluxos automatizados para mascarar spam, inflar volume artificialmente ou simular interações humanas de forma enganosa.
+          </p>
+        </article>
+
+        <article class="policy-box">
+          <h2>7. Disponibilidade, integrações e limitações</h2>
+          <p>
+            O funcionamento do software depende de fatores internos e externos, incluindo conectividade, disponibilidade da infraestrutura, serviços de terceiros, integrações contratadas e políticas da plataforma oficial.
+            Eventuais alterações de regras, limites, categorias de mensagens, cobranças ou disponibilidade impostas pela Meta ou por terceiros podem impactar o uso do sistema sem que isso configure falha exclusiva do fornecedor do software.
+          </p>
+        </article>
+
+        <article class="policy-box">
+          <h2>8. Auditoria, monitoramento e conformidade</h2>
+          <p>
+            Para fins de segurança, suporte, estabilidade e conformidade, o ambiente poderá registrar logs técnicos, histórico de eventos, trilhas operacionais, ações administrativas e indicadores de uso.
+            Esses registros poderão ser utilizados para investigar incidentes, validar operações, apurar abusos e comprovar cumprimento das políticas aqui previstas.
+          </p>
+        </article>
+
+        <article class="policy-box">
+          <h2>9. Penalidades e medidas administrativas</h2>
+          <ul>
+            <li>Advertência formal e solicitação de adequação imediata.</li>
+            <li>Suspensão temporária de usuários, setores, números ou integrações.</li>
+            <li>Bloqueio preventivo de funcionalidades com risco operacional ou regulatório.</li>
+            <li>Rescisão do acesso em caso de reincidência ou violação grave.</li>
+          </ul>
+        </article>
+
+        <article class="policy-box">
+          <h2>10. Atualizações desta política</h2>
+          <p>
+            Estas políticas poderão ser atualizadas a qualquer tempo para refletir mudanças legais, contratuais, operacionais, técnicas ou regulatórias.
+            Recomenda-se revisão periódica do documento por administradores, equipe jurídica, DPO e responsáveis pela operação de atendimento.
+          </p>
+        </article>
+      </div>
+
+      <footer class="footer-note">
+        <p>
+          Este modelo é genérico e pode ser adaptado com nome da empresa, CNPJ, canais oficiais, regras internas, prazo de retenção de dados, política de privacidade e cláusulas contratuais específicas.
+        </p>
+        <div class="actions">
+          <a href="#" class="btn btn-secondary" onclick="window.print(); return false;">Imprimir</a>
+          <a href="#" class="btn btn-primary" onclick="alert('Confirmação simulada. Substitua esta ação conforme sua aplicação.'); return false;">Li e concordo</a>
+        </div>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>
