@@ -1,78 +1,92 @@
-# Bit soft - Site Institucional
+# Bitsoft — Site institucional
 
-Site institucional de página única desenvolvido para divulgação da **BIT SOFT DESENVOLVIMENTO DE SOFTWARE LTDA**, com foco em serviços de desenvolvimento de software WEB.
+Site de página única da **BIT SOFT DESENVOLVIMENTO DE SOFTWARE LTDA** — *Soluções em aplicações web*.
+Endereço: [www.bitsoft.dev.br](https://www.bitsoft.dev.br/).
 
-## Objetivo
+## Identidade visual
 
-Apresentar a empresa de forma clara e moderna, destacando:
+| Cor | Hex | Uso |
+| --- | --- | --- |
+| Navy | `#0B1026` | Fundo principal |
+| Azul Tech | `#0EA5E9` | Links, ações, tecnologia |
+| Violeta | `#7C3AED` | Destaques, inovação |
+| Neutro | `#F8FAFC` | Texto e fundos claros |
 
-- serviços genéricos de desenvolvimento WEB;
-- tecnologias principais: PHP, React e JavaScript;
-- contato comercial por e-mail.
+- O gradiente azul → violeta é a assinatura da marca: use com moderação (logo, CTA principal, destaques).
+- Tipografia: **Inter** (principal) e **JetBrains Mono** (detalhes técnicos).
+- Slogan: **SOLUÇÕES EM APLICAÇÕES WEB**.
 
-## Contato
+### Arquivos de marca (`assets/brand/`)
 
-- rafael.oliveira.roa@gmail.com
+| Arquivo | Uso |
+| --- | --- |
+| `logo-horizontal.svg` / `-light.svg` | Logo completo com slogan (fundo escuro / claro) |
+| `logo-compact.svg` / `-light.svg` | Símbolo + nome, sem slogan (cabeçalhos, tamanhos pequenos) |
+| `logo-vertical.svg` / `-light.svg` | Símbolo acima do nome e do slogan |
+| `icon.svg` / `icon-light-bg.svg` | Símbolo colorido (código branco / navy) |
+| `icon-white.svg`, `icon-dark.svg`, `icon-mono-*.svg` | Versões monocromáticas |
+| `app-icon*.svg` | Ícone em quadrado arredondado (avatar, redes sociais, WhatsApp) |
+| `png/` | Exportações PNG transparentes em alta resolução |
 
-## Estrutura do projeto
+Os SVGs são gerados por `docs/brand/gen.py` (textos convertidos em curvas, sem dependência de fonte).
+A referência original (prancha e conversa do ChatGPT) e os prompts para gerar versões raster estão em `docs/brand/`.
 
-- `index.html`: estrutura da página única;
-- `styles.css`: estilos visuais, layout responsivo e identidade visual;
-- `script.js`: animações de entrada/reveal dos blocos;
-- `assets/logo.svg`: logo principal da Bit soft;
-- `assets/favicon.svg`: favicon do site;
-- `netlify.toml`: configuração de publicação para Netlify.
+## Estrutura
 
-## Como executar localmente
+- `index.html`, `404.html`, `styles.css`, `script.js` — o site;
+- `assets/` — marca, favicon, ícones PWA e imagem de compartilhamento (`og-image.png`);
+- `favicon.ico`, `site.webmanifest`, `robots.txt`, `sitemap.xml` — favicon, SEO e PWA;
+- `docs/` — materiais de marca (não publicados);
+- `build.sh` — monta a pasta `dist/` publicada no Cloudflare Pages;
+- `_headers` — headers de segurança e cache (formato Cloudflare Pages).
 
-Como é um site estático, você pode abrir diretamente o arquivo `index.html` no navegador.
+## Google (SEO)
 
-Se preferir rodar com servidor local:
+O site já tem favicon nos formatos aceitos pelo Google (`/favicon.ico` 48px e PNGs múltiplos de 48),
+dados estruturados (`WebSite` + `Organization`), `robots.txt`, `sitemap.xml`, URL canônica
+`https://www.bitsoft.dev.br/` e página 404.
 
-1. Acesse a pasta do projeto.
-2. Execute:
+Após o deploy:
 
-   ```bash
-   python3 -m http.server 8080
-   ```
+1. Configure o redirecionamento do domínio sem www (veja **Deploy no Cloudflare Pages**).
+2. No [Google Search Console](https://search.google.com/search-console), adicione a propriedade
+   do tipo **Domínio** `bitsoft.dev.br` e valide pelo registro TXT no DNS.
+3. Em **Sitemaps**, envie `https://www.bitsoft.dev.br/sitemap.xml`.
+4. Em **Inspeção de URL**, inspecione `https://www.bitsoft.dev.br/` e clique em **Solicitar indexação**.
+5. Valide os dados estruturados em https://search.google.com/test/rich-results.
 
-3. Abra no navegador:
+Ao alterar o conteúdo, atualize o `<lastmod>` do `sitemap.xml`.
 
-   http://localhost:8080
+## WhatsApp
 
-## Características da interface
+Defina o número em `script.js` (`WHATSAPP_NUMBER`, só dígitos com DDI e DDD, ex.: `5511999999999`).
+Enquanto estiver vazio, os botões de WhatsApp ficam ocultos.
 
-- layout moderno e responsivo (desktop e mobile);
-- identidade visual com gradientes e elementos suaves;
-- seção de serviços e tecnologias;
-- animações leves para melhor experiência visual.
+## Executar localmente
 
-## Deploy no Netlify
+```bash
+python3 -m http.server 8080
+```
 
-Este projeto já está preparado para deploy no Netlify com o arquivo `netlify.toml`.
+Acesse http://localhost:8080.
 
-### Opção 1: Deploy pelo Git (recomendado)
+## Deploy no Cloudflare Pages
 
-1. Envie o projeto para um repositório GitHub/GitLab/Bitbucket.
-2. No Netlify, clique em **Add new site** > **Import an existing project**.
-3. Conecte o repositório e selecione o projeto.
-4. O Netlify vai usar automaticamente:
-   - Publish directory: `.`
-   - Sem comando de build (site estático)
-5. Clique em **Deploy site**.
+1. No painel do Cloudflare, em **Workers & Pages › Create › Pages**, conecte o repositório Git.
+2. Configuração do build:
+   - Framework preset: **None**
+   - Build command: `sh build.sh`
+   - Build output directory: `dist`
+3. Em **Custom domains** do projeto, adicione `www.bitsoft.dev.br` e também `bitsoft.dev.br`.
+4. Redirecione o domínio sem www para o www (o `_redirects` do Pages não faz redirecionamento entre domínios).
+   Em **Rules › Redirect Rules** da zona `bitsoft.dev.br`, crie a regra:
+   - Quando: *Hostname* igual a `bitsoft.dev.br`
+   - Então: redirecionamento dinâmico para `concat("https://www.bitsoft.dev.br", http.request.uri.path)`,
+     status **301**, preservando a query string.
+5. Em **SSL/TLS › Edge Certificates**, ative **Always Use HTTPS**.
 
-### Opção 2: Deploy manual (drag and drop)
+O `build.sh` copia só os arquivos públicos para `dist/`, então `docs/` não vai ao ar.
+Como existe um `404.html`, o Pages responde com status 404 para endereços inexistentes.
 
-1. No painel do Netlify, acesse **Sites**.
-2. Arraste a pasta do projeto para a área de deploy manual.
-3. Aguarde a publicação.
-
-### Observação sobre rotas
-
-O `netlify.toml` inclui um redirect para `index.html`, garantindo funcionamento correto em acesso direto a rotas.
-
-## Observações
-
-- Não há backend neste projeto;
-- Não há dependências externas de build;
-- Ideal para uso como landing page institucional simples.
+> Dica: se a opção **Scrape Shield › Email Address Obfuscation** estiver ativa, o Cloudflare
+> reescreve os links `mailto:`. Desative-a se preferir manter o e-mail como está no HTML.
