@@ -36,6 +36,7 @@ A referência original (prancha e conversa do ChatGPT) e os prompts para gerar v
 - `index.html`, `404.html`, `styles.css`, `script.js` — o site;
 - `assets/` — marca, favicon, ícones PWA e imagem de compartilhamento (`og-image.png`);
 - `favicon.ico`, `site.webmanifest`, `robots.txt`, `sitemap.xml` — favicon, SEO e PWA;
+- `waba/policy.html` — política para o WhatsApp Business API (WABA);
 - `docs/` — materiais de marca (não publicados);
 - `build.sh` — monta a pasta `dist/` publicada no Cloudflare Pages;
 - `_headers` — headers de segurança e cache (formato Cloudflare Pages).

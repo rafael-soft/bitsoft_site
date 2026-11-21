@@ -5,4 +5,4 @@ set -e
 rm -rf dist
 mkdir dist
 cp -r index.html 404.html styles.css script.js assets favicon.ico \
-  site.webmanifest robots.txt sitemap.xml _headers dist/
+  site.webmanifest robots.txt sitemap.xml _headers waba dist/
