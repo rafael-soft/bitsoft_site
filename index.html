@@ -259,14 +259,62 @@
       </section>
 
       <section class="section container" id="contato">
-        <div class="cta reveal">
-          <p class="eyebrow">// contato</p>
-          <h2>Vamos tirar sua ideia do papel?</h2>
-          <p>Conte sobre o seu projeto. Respondemos rápido, com uma proposta clara e sem compromisso.</p>
-          <div class="cta-actions">
-            <a href="mailto:contato@bitsoft.dev.br" class="btn btn-light">contato@bitsoft.dev.br</a>
-            <a href="#" class="btn btn-outline-light" data-whatsapp hidden>Falar no WhatsApp</a>
+        <div class="contact">
+          <div class="cta reveal">
+            <p class="eyebrow">// contato</p>
+            <h2>Vamos tirar sua ideia do papel?</h2>
+            <p>Conte sobre o seu projeto. Respondemos rápido, com uma proposta clara e sem compromisso.</p>
+            <div class="cta-actions">
+              <a href="mailto:contato@bitsoft.dev.br" class="btn btn-light">contato@bitsoft.dev.br</a>
+              <a href="#" class="btn btn-outline-light" data-whatsapp hidden>Falar no WhatsApp</a>
+            </div>
           </div>
+
+          <form class="contact-form reveal" id="contact-form" novalidate>
+            <h3>Fale conosco</h3>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-nome">Nome</label>
+                <input id="f-nome" name="name" type="text" autocomplete="name" required maxlength="120" />
+              </div>
+              <div class="field">
+                <label for="f-email">E-mail</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="160" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-telefone">Telefone / WhatsApp <span class="optional">(opcional)</span></label>
+                <input id="f-telefone" name="phone" type="tel" autocomplete="tel" maxlength="30" />
+              </div>
+              <div class="field">
+                <label for="f-tipo">Tipo de projeto</label>
+                <select id="f-tipo" name="project_type">
+                  <option>Site ou portal</option>
+                  <option>Sistema web</option>
+                  <option>API ou integração</option>
+                  <option>E-commerce</option>
+                  <option>Manutenção de aplicação existente</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-mensagem">Mensagem</label>
+              <textarea id="f-mensagem" name="message" rows="5" required maxlength="4000" placeholder="Conte um pouco sobre a sua ideia ou necessidade."></textarea>
+            </div>
+
+            <!-- Proteção anti-spam (honeypot): humanos não veem este campo -->
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <p class="form-note">Usamos seus dados apenas para responder ao seu contato.</p>
+
+            <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </section>
     </main>

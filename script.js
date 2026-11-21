@@ -13,6 +13,86 @@ if (WHATSAPP_NUMBER) {
   });
 }
 
+// Formulário de contato via Web3Forms (https://web3forms.com, plano gratuito).
+// Cole aqui a Access Key recebida por e-mail. Enquanto estiver vazia, o envio
+// abre o programa de e-mail do visitante com a mensagem preenchida.
+const WEB3FORMS_ACCESS_KEY = 'e4931133-3f82-46eb-925b-1302bb3079fb';
+const CONTACT_EMAIL = 'contato@bitsoft.dev.br';
+
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+  const status = contactForm.querySelector('.form-status');
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+
+  const setStatus = (message, type) => {
+    status.textContent = message;
+    status.className = `form-status ${type || ''}`;
+  };
+
+  const validate = () => {
+    let firstInvalid = null;
+    contactForm.querySelectorAll('[required]').forEach((field) => {
+      const valid = field.value.trim() !== '' && field.checkValidity();
+      field.classList.toggle('invalid', !valid);
+      field.setAttribute('aria-invalid', String(!valid));
+      if (!valid && !firstInvalid) firstInvalid = field;
+    });
+    if (firstInvalid) firstInvalid.focus();
+    return !firstInvalid;
+  };
+
+  contactForm.addEventListener('input', (event) => {
+    if (event.target.classList.contains('invalid') && event.target.checkValidity()) {
+      event.target.classList.remove('invalid');
+      event.target.setAttribute('aria-invalid', 'false');
+    }
+  });
+
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!validate()) {
+      setStatus('Preencha nome, e-mail válido e mensagem.', 'error');
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(contactForm));
+
+    if (!WEB3FORMS_ACCESS_KEY) {
+      const body = `Nome: ${data.name}\nE-mail: ${data.email}\nTelefone: ${data.phone || '-'}\nProjeto: ${data.project_type}\n\n${data.message}`;
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Contato pelo site — ${data.project_type}`)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    submitButton.disabled = true;
+    setStatus('Enviando…');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Contato pelo site — ${data.project_type}`,
+          from_name: 'Site Bitsoft',
+          replyto: data.email,
+          botcheck: Boolean(data.botcheck),
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message);
+
+      contactForm.reset();
+      setStatus('Mensagem enviada! Retornaremos em breve.', 'success');
+    } catch (error) {
+      setStatus(`Não foi possível enviar agora. Tente novamente ou escreva para ${CONTACT_EMAIL}.`, 'error');
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+}
+
 // Menu mobile
 const menuToggle = document.querySelector('.menu-toggle');
 const menu = document.getElementById('menu');

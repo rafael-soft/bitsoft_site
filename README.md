@@ -58,6 +58,19 @@ Após o deploy:
 
 Ao alterar o conteúdo, atualize o `<lastmod>` do `sitemap.xml`.
 
+## Formulário de contato (Web3Forms)
+
+O formulário "Fale conosco" envia as mensagens pelo [Web3Forms](https://web3forms.com)
+(plano gratuito: 250 envios/mês, sem backend). Para ativar:
+
+1. Acesse https://web3forms.com, informe `contato@bitsoft.dev.br` em **Create your Access Key**.
+2. Copie a Access Key recebida por e-mail e cole em `WEB3FORMS_ACCESS_KEY` no `script.js`.
+3. (Opcional) No painel do Web3Forms, restrinja a chave ao domínio `bitsoft.dev.br`.
+
+As mensagens chegam no e-mail cadastrado, com o remetente configurado como "responder para".
+Enquanto a chave estiver vazia, o botão "Enviar mensagem" abre o programa de e-mail do visitante
+com a mensagem já preenchida. O formulário tem proteção anti-spam por campo oculto (honeypot).
+
 ## WhatsApp
 
 Defina o número em `script.js` (`WHATSAPP_NUMBER`, só dígitos com DDI e DDD, ex.: `5511999999999`).
